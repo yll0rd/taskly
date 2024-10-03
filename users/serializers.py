@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 class UserSerializer(serializers.ModelSerializer):
 
+    username = serializers.CharField(read_only=True)
     password = serializers.CharField(write_only=True, required=False)
 
     class Meta:
