@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'house.apps.HouseConfig',
+    'task.apps.TaskConfig',
     'django_extensions',
 ]
 

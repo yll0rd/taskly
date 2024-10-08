@@ -21,6 +21,7 @@ from django.urls import path, include
 
 from users import router as users_api_router
 from house import router as house_api_router
+from task import router as task_api_router
 
 auth_api_urls = [
     path(r'', include(('rest_framework_social_oauth2.urls', 'social_auth'), namespace='social_auth')),
@@ -33,6 +34,7 @@ api_url_patterns = [
     path(r"auth/", include(auth_api_urls)),
     path(r"accounts/", include(users_api_router.router.urls)),
     path(r"houses/", include(house_api_router.router.urls)),
+    path(r"t/", include(task_api_router.router.urls)),
 ]
 
 urlpatterns = [
