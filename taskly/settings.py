@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_social_oauth2',
+    'django_filters',
     'oauth2_provider',
     'social_django',
     'django.contrib.admin',

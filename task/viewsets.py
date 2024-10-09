@@ -1,4 +1,5 @@
 from django.utils import timezone
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, mixins, status as s
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -25,6 +26,8 @@ class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [IsAllowedToEditTaskElseNone]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['status']
 
     def get_queryset(self):
         queryset = super(TaskViewSet, self).get_queryset()
