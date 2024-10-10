@@ -106,16 +106,17 @@ if os.getenv('USE_DB_ONLINE', "False") == 'True':
     POSTGRES_DATABASE = os.getenv("POSTGRES_DATABASE")
 
     # Construct the database URL
-    DATABASE_URL = f"postgres://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}/{POSTGRES_DATABASE}"
+    DATABASE_URL = f"postgres://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:5432/{POSTGRES_DATABASE}"
 
     # Configure the DATABASES setting
     DATABASES = {
         'default': dj_database_url.config(default=DATABASE_URL)
     }
+    print(DATABASES)
     # DATABASES = {
     #     'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
     # }
-elif os.getenv('ON_PRODUCTION') == 'False':
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
