@@ -6,7 +6,7 @@ source venv/bin/activate
 
 echo "Building the project..."
 # Build the project
-python3 -m pip install -r requirements.txt
+python3 -m pip install --use-pep517 -r requirements.txt
 
 echo "Make Migration..."
 python3 manage.py makemigrations --noinput
