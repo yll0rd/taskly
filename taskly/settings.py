@@ -112,7 +112,6 @@ if os.getenv('USE_DB_ONLINE', "False") == 'True':
     DATABASES = {
         'default': dj_database_url.config(default=DATABASE_URL)
     }
-    print(DATABASES)
     # DATABASES = {
     #     'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
     # }
