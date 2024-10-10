@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os.path
 from pathlib import Path
 
+import dj_database_url
+# import
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -49,7 +51,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'house.apps.HouseConfig',
     'task.apps.TaskConfig',
-    'background_jobs.apps.BackgroundJobsConfig',
+    # 'background_jobs.apps.BackgroundJobsConfig',
     'django_extensions',
 ]
 
@@ -89,12 +91,47 @@ WSGI_APPLICATION = 'taskly.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+if os.getenv('USE_DB_ONLINE', "False") == 'True':
+    # Load environment variables
+    POSTGRES_URL = os.getenv("POSTGRES_URL")
+    POSTGRES_USER = os.getenv("POSTGRES_USER")
+    POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+    POSTGRES_HOST = os.getenv("POSTGRES_HOST")
+    POSTGRES_DATABASE = os.getenv("POSTGRES_DATABASE")
+
+    # Construct the database URL
+    DATABASE_URL = f"postgres://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}/{POSTGRES_DATABASE}"
+
+    # Configure the DATABASES setting
+    DATABASES = {
+        'default': dj_database_url.config(default=DATABASE_URL)
     }
-}
+    # DATABASES = {
+    #     'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
+    # }
+elif os.getenv('ON_PRODUCTION') == 'False':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.mysql',
+    #         'NAME': os.getenv("DB_NAME"),
+    #         'USER': os.getenv("DB_USER"),
+    #         'PASSWORD': os.getenv("DB_PASSWORD"),
+    #         'HOST': os.getenv("DB_HOST"),
+    #         'PORT': os.getenv("DB_PORT"),
+    #     }
+    # }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
