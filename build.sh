@@ -1,9 +1,11 @@
 #!/bin/bash
 
-# Build the project
-echo "Building the project..."
+echo "Activating Environment..."
 python3 -m venv venv
 source venv/bin/activate
+
+echo "Building the project..."
+# Build the project
 python3 -m pip install -r requirements.txt
 
 echo "Make Migration..."
