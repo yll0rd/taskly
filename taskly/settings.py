@@ -167,7 +167,6 @@ if USE_S3:
 
     # s3 public media settings
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/media/'
-    print(MEDIA_URL)
 
     STORAGES = {
         # Media file (image) management
